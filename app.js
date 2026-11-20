@@ -94,7 +94,8 @@
 
   var saved = null;
   try { saved = localStorage.getItem("mk.lastTab"); } catch (e) {}
-  if (saved && tabs[saved]) select(saved, false);
+  // 앱을 열면 항상 '오늘 한눈에'부터 보여 줍니다.
+  select("today", false);
 
   /* ---------- 새로고침 (Network-First SW라 최신 파일을 받아옵니다) ---------- */
   var rb = $("refresh");
