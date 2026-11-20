@@ -1,0 +1,16 @@
+{
+  "name": "매경 시황·세계경제",
+  "short_name": "매경시황",
+  "description": "매일경제 주식시황·세계경제 오늘의 브리핑 — 매일 오전 9시 업데이트",
+  "lang": "ko",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4f6f9",
+  "theme_color": "#0b2b4a",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
