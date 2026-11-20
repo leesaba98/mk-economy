@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>매경 시황·세계경제</title>
+<meta name="description" content="매일경제 주식시황·세계경제 오늘의 브리핑" />
+<meta name="theme-color" content="#0b2b4a" />
+<link rel="manifest" href="./manifest.json" />
+<link rel="apple-touch-icon" href="./icon-192.png" />
+<style>
+  :root{
+    --navy:#0b2b4a;
+    --navy-2:#12406b;
+    --accent:#c8102e;
+    --up:#c8102e;     /* 국내 표기: 상승=빨강 */
+    --down:#1652b8;   /* 하락=파랑 */
+    --ink:#1a1c20;
+    --ink-2:#4b5058;
+    --line:#e4e7ec;
+    --bg:#f4f6f9;
+    --card:#ffffff;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-text-size-adjust:100%;
+    padding-bottom:calc(28px + env(safe-area-inset-bottom));
+  }
+  a{color:inherit;text-decoration:none}
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky;top:0;z-index:30;
+    background:linear-gradient(135deg,var(--navy) 0%,var(--navy-2) 100%);
+    color:#fff;
+    padding:calc(14px + env(safe-area-inset-top)) 16px 13px;
+    box-shadow:0 2px 10px rgba(11,43,74,.18);
+  }
+  .brandline{display:flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.02em;color:#a9c3dd;font-weight:600}
+  .brandline .dot{width:4px;height:4px;border-radius:50%;background:#7fa8cf}
+  .headrow{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-top:4px}
+  h1{font-size:21px;line-height:1.25;margin:0;font-weight:800;letter-spacing:-.02em}
+  .stamp{margin:5px 0 0;font-size:12.5px;color:#c9dcee}
+  .stamp b{color:#fff;font-weight:700}
+  #refresh{
+    flex:0 0 auto;display:inline-flex;align-items:center;gap:5px;
+    background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.28);
+    color:#fff;font-size:12.5px;font-weight:700;padding:7px 11px;border-radius:999px;
+    font-family:inherit;cursor:pointer;
+  }
+  #refresh:active{background:rgba(255,255,255,.25)}
+  #refresh svg{width:14px;height:14px;display:block}
+  #refresh.spin svg{animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* ---------- tabs ---------- */
+  nav{
+    position:sticky;top:0;z-index:20;
+    display:flex;gap:0;background:#fff;border-bottom:1px solid var(--line);
+    box-shadow:0 2px 8px rgba(20,30,50,.04);
+    overflow-x:auto;scrollbar-width:none;
+  }
+  nav::-webkit-scrollbar{display:none}
+  nav button{
+    flex:1 0 auto;min-width:104px;
+    background:none;border:0;border-bottom:3px solid transparent;
+    padding:13px 8px 11px;font-family:inherit;font-size:14px;font-weight:700;
+    color:#7a828e;cursor:pointer;white-space:nowrap;
+  }
+  nav button[aria-selected="true"]{color:var(--navy);border-bottom-color:var(--accent)}
+
+  main{padding:14px 14px 0;max-width:720px;margin:0 auto}
+  section[hidden]{display:none}
+
+  /* ---------- cards ---------- */
+  .card{
+    background:var(--card);border-radius:var(--radius);
+    box-shadow:0 1px 3px rgba(20,30,50,.07);border:1px solid rgba(20,30,50,.04);
+    margin-bottom:12px;
+  }
+  .pad{padding:15px 16px}
+
+  .lead{
+    background:#fff;border-left:4px solid var(--accent);
+    border-radius:10px;padding:14px 15px 6px;margin-bottom:12px;
+    box-shadow:0 1px 3px rgba(20,30,50,.07);
+  }
+  .lead h2{font-size:14px;margin:0 0 8px;color:var(--accent);letter-spacing:.01em}
+  .lead ul{margin:0;padding-left:17px}
+  .lead li{font-size:14.5px;line-height:1.62;margin-bottom:8px;color:#24262b}
+  .lead li::marker{color:#c2c8d1}
+
+  .secttl{
+    display:flex;align-items:center;gap:8px;
+    font-size:12.5px;font-weight:800;color:#5b6472;letter-spacing:.06em;
+    margin:18px 4px 9px;text-transform:uppercase;
+  }
+  .secttl::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  /* ---------- market grid ---------- */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+  .mcard{
+    background:#fff;border-radius:12px;padding:12px 12px 11px;
+    border:1px solid rgba(20,30,50,.05);
+    box-shadow:0 1px 3px rgba(20,30,50,.06);
+  }
+  .mcard .n{font-size:12.5px;color:#69707c;font-weight:700;display:flex;justify-content:space-between;gap:6px;align-items:baseline}
+  .mcard .n span{font-size:10.5px;color:#9aa2ad;font-weight:600}
+  .mcard .v{font-size:18px;font-weight:800;letter-spacing:-.02em;margin-top:3px;font-variant-numeric:tabular-nums}
+  .mcard .c{font-size:13px;font-weight:800;margin-top:1px;font-variant-numeric:tabular-nums}
+  .mcard .m{font-size:11px;color:#8b929c;margin-top:4px;line-height:1.35}
+  .down .v,.down .c{color:var(--down)}
+  .up .v,.up .c{color:var(--up)}
+
+  /* ---------- article ---------- */
+  .art{padding:15px 16px 14px}
+  .meta{display:flex;align-items:center;gap:7px;font-size:11.5px;color:#8b929c;font-weight:600}
+  .tag{
+    background:#eef2f7;color:#3a5573;border-radius:5px;
+    padding:2px 6px;font-size:11px;font-weight:800;letter-spacing:.01em;
+  }
+  .art h3{font-size:16.5px;line-height:1.42;margin:7px 0 9px;font-weight:800;letter-spacing:-.015em}
+  .art ul{margin:0;padding-left:16px}
+  .art li{font-size:14px;line-height:1.62;color:#33363d;margin-bottom:6px}
+  .art li::marker{color:#c8ced8}
+  .art li:last-child{margin-bottom:0}
+  .go{
+    display:inline-flex;align-items:center;gap:5px;margin-top:11px;
+    font-size:12.5px;font-weight:800;color:var(--navy-2);
+    border:1px solid #d7e0ea;background:#f7f9fc;
+    padding:6px 10px;border-radius:8px;
+  }
+  .go:active{background:#eef3f9}
+  .go svg{width:12px;height:12px}
+
+  footer{
+    max-width:720px;margin:6px auto 0;padding:6px 18px 10px;
+    font-size:11.5px;color:#9299a3;line-height:1.7;
+  }
+  footer b{color:#6d7581}
+  .empty{padding:26px;text-align:center;color:#98a0aa;font-size:14px}
+</style>
+</head>
+<body>
+<header>
+  <div class="brandline">매일경제 <span class="dot"></span> 오늘의 브리핑</div>
+  <div class="headrow">
+    <div>
+      <h1>매경 시황·세계경제</h1>
+      <p class="stamp">업데이트 <b id="stamp">불러오는 중…</b></p>
+    </div>
+    <button id="refresh" type="button" aria-label="새로고침">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+      새로고침
+    </button>
+  </div>
+</header>
+
+<nav role="tablist" aria-label="브리핑 구역">
+  <button role="tab" id="tab-today" aria-controls="pane-today" aria-selected="true">오늘 한눈에</button>
+  <button role="tab" id="tab-stock" aria-controls="pane-stock" aria-selected="false">매경 주식시황</button>
+  <button role="tab" id="tab-world" aria-controls="pane-world" aria-selected="false">매경 세계경제</button>
+</nav>
+
+<main>
+  <section id="pane-today" role="tabpanel" aria-labelledby="tab-today">
+    <div class="lead">
+      <h2>오늘의 핵심</h2>
+      <ul id="summary"></ul>
+    </div>
+    <div class="secttl">주요 지수·환율</div>
+    <div class="grid" id="markets"></div>
+    <div class="secttl">바로가기</div>
+    <div class="card pad">
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <button class="go" type="button" data-jump="stock" style="margin:0">주식시황 자세히</button>
+        <button class="go" type="button" data-jump="world" style="margin:0">세계경제 자세히</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="pane-stock" role="tabpanel" aria-labelledby="tab-stock" hidden>
+    <div id="stocks"></div>
+  </section>
+
+  <section id="pane-world" role="tabpanel" aria-labelledby="tab-world" hidden>
+    <div id="world"></div>
+  </section>
+</main>
+
+<footer>
+  <b id="footBasis">—</b><br />
+  출처 <b>매일경제(mk.co.kr)</b> · 각 기사 제목을 누르면 원문으로 이동합니다.<br />
+  <span id="footNote">—</span>
+</footer>
+
+<script src="./app-data.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
