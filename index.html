@@ -40,9 +40,10 @@
     position:sticky;top:0;z-index:30;
     background:linear-gradient(135deg,var(--navy) 0%,var(--navy-2) 100%);
     color:#fff;
-    padding:calc(14px + env(safe-area-inset-top)) 16px 13px;
+    padding:calc(14px + env(safe-area-inset-top)) 0 13px;
     box-shadow:0 2px 10px rgba(11,43,74,.18);
   }
+  .hwrap{max-width:720px;margin:0 auto;padding:0 16px}
   .brandline{display:flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.02em;color:#a9c3dd;font-weight:600}
   .brandline .dot{width:4px;height:4px;border-radius:50%;background:#7fa8cf}
   .headrow{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-top:4px}
@@ -63,11 +64,14 @@
   /* ---------- tabs ---------- */
   nav{
     position:sticky;top:0;z-index:20;
-    display:flex;gap:0;background:#fff;border-bottom:1px solid var(--line);
+    background:#fff;border-bottom:1px solid var(--line);
     box-shadow:0 2px 8px rgba(20,30,50,.04);
+  }
+  .nwrap{
+    display:flex;max-width:720px;margin:0 auto;
     overflow-x:auto;scrollbar-width:none;
   }
-  nav::-webkit-scrollbar{display:none}
+  .nwrap::-webkit-scrollbar{display:none}
   nav button{
     flex:1 0 auto;min-width:104px;
     background:none;border:0;border-bottom:3px solid transparent;
@@ -150,23 +154,27 @@
 </head>
 <body>
 <header>
-  <div class="brandline">매일경제 <span class="dot"></span> 오늘의 브리핑</div>
-  <div class="headrow">
-    <div>
-      <h1>매경 시황·세계경제</h1>
-      <p class="stamp">업데이트 <b id="stamp">불러오는 중…</b></p>
+  <div class="hwrap">
+    <div class="brandline">매일경제 <span class="dot"></span> 오늘의 브리핑</div>
+    <div class="headrow">
+      <div>
+        <h1>매경 시황·세계경제</h1>
+        <p class="stamp">업데이트 <b id="stamp">불러오는 중…</b></p>
+      </div>
+      <button id="refresh" type="button" aria-label="새로고침">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+        새로고침
+      </button>
     </div>
-    <button id="refresh" type="button" aria-label="새로고침">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
-      새로고침
-    </button>
   </div>
 </header>
 
-<nav role="tablist" aria-label="브리핑 구역">
-  <button role="tab" id="tab-today" aria-controls="pane-today" aria-selected="true">오늘 한눈에</button>
-  <button role="tab" id="tab-stock" aria-controls="pane-stock" aria-selected="false">매경 주식시황</button>
-  <button role="tab" id="tab-world" aria-controls="pane-world" aria-selected="false">매경 세계경제</button>
+<nav aria-label="브리핑 구역">
+  <div class="nwrap" role="tablist">
+    <button role="tab" id="tab-today" aria-controls="pane-today" aria-selected="true">오늘 한눈에</button>
+    <button role="tab" id="tab-stock" aria-controls="pane-stock" aria-selected="false">매경 주식시황</button>
+    <button role="tab" id="tab-world" aria-controls="pane-world" aria-selected="false">매경 세계경제</button>
+  </div>
 </nav>
 
 <main>
